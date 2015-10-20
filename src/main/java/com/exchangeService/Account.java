@@ -13,9 +13,12 @@ public class Account {
     private String email;
     private String phone;
 
+    public Account() {
+    }
+
     public Account(int id) {
         this.id = id;
-    }
+    }//other constructors too
 
     public int getId() {
         return id;
