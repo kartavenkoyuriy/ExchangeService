@@ -9,16 +9,68 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostrgesAccountDao implements AccountDao {
+public class PostrgesAccountDao extends AbstractJDBCDao<Account, Integer> {
 
-    private final Connection connection;
+    private final Connection connection;//is needed
 
     public PostrgesAccountDao(Connection connection) {
+        super(connection);
         this.connection = connection;
     }
 
+    private class PersistAccount extends Account {
+        public void setId(int id) {
+            super.setId(id);
+        }
+    }
+
+
+
     public Account create() {
         return null;
+    }
+
+    @Override
+    protected String getCreateQuery() {
+        return "SELECT id, fullName, login, password FROM account;";
+    }
+
+    @Override
+    public String getSelectQuery() {
+        return "INSERT INTO account (fullName, login, password) VALUES (?, ?, ?);";
+    }
+
+    @Override
+    protected String getDeleteQuery() {
+        return null;
+    }
+
+    @Override
+    protected String getUpdateQuery() {
+        return null;
+    }
+
+    @Override
+    protected List<Account> parseResultSet(ResultSet resultSet) {
+        return null;
+    }
+
+    @Override
+    protected void preparedStatementForDelete(PreparedStatement preparedStatement, Account object) {
+
+    }
+
+    @Override
+    protected void preparedStatementForInsert(PreparedStatement preparedStatement, Account object) {
+
+    }
+
+    public void update(Account account) {
+
+    }
+
+    public void delete(Account account) {
+
     }
 
     public Account read(int id) throws SQLException {
@@ -35,14 +87,6 @@ public class PostrgesAccountDao implements AccountDao {
         resultAccount.setPassword(resultSet.getString("password"));
 
         return resultAccount;
-    }
-
-    public void update(Account account) {
-
-    }
-
-    public void delete(Account account) {
-
     }
 
     public List<Account> getAllAccounts() throws SQLException {

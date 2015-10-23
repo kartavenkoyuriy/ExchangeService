@@ -18,7 +18,7 @@ public class PostgresAccountDaoTest {
             AccountDao accountDao = daoFactory.getAccountDao(connection);
             accounts = accountDao.getAllAccounts();
             Assert.assertNotNull(accounts);
-            Assert.assertTrue(accounts.size() > 0);
+            Assert.assertTrue(accounts.size() > 0);//more asserts
         } catch (SQLException e) {
             e.printStackTrace();
         }
